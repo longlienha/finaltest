@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="quanlydogoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="adress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="orderCus" Relationship="Self.FK__orderCus__custom__182C9B23" FromRole="customer" ToRole="orderCus" />
+  </EntityType>
+  <EntityType Name="login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="orderCu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="customerid" Type="Int32" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_time" Type="DateTime" Precision="3" />
+    <Property Name="total_price" Type="Decimal" Precision="16" Scale="0" />
+    <NavigationProperty Name="customer" Relationship="Self.FK__orderCus__custom__182C9B23" FromRole="orderCus" ToRole="customer" />
+    <NavigationProperty Name="product_order" Relationship="Self.FK__product_o__order__1BFD2C07" FromRole="orderCus" ToRole="product_order" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Decimal" Precision="16" Scale="0" />
+    <Property Name="pricelive" Type="Decimal" Precision="16" Scale="0" />
+    <Property Name="product_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="design_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="size" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="product_order" Relationship="Self.FK__product_o__produ__1B0907CE" FromRole="product" ToRole="product_order" />
+    <NavigationProperty Name="stock_product" Relationship="Self.FK__stock_pro__produ__38996AB5" FromRole="product" ToRole="stock_product" />
+  </EntityType>
+  <EntityType Name="product_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="productId" Type="Int32" />
+    <Property Name="orderId" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="price" Type="Decimal" Precision="16" Scale="0" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="orderCu" Relationship="Self.FK__product_o__order__1BFD2C07" FromRole="product_order" ToRole="orderCus" />
+    <NavigationProperty Name="product" Relationship="Self.FK__product_o__produ__1B0907CE" FromRole="product_order" ToRole="product" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="stock_product" Relationship="Self.FK__stock_pro__stock__37A5467C" FromRole="stock" ToRole="stock_product" />
+  </EntityType>
+  <EntityType Name="stock_product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stockId" Type="Int32" />
+    <Property Name="productID" Type="Int32" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="orderProduct" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__stock_pro__produ__38996AB5" FromRole="stock_product" ToRole="product" />
+    <NavigationProperty Name="stock" Relationship="Self.FK__stock_pro__stock__37A5467C" FromRole="stock_product" ToRole="stock" />
+    <Property Name="timeStamp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__orderCus__custom__182C9B23">
+    <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+    <End Role="orderCus" Type="Self.orderCu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orderCus">
+        <PropertyRef Name="customerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_o__order__1BFD2C07">
+    <End Role="orderCus" Type="Self.orderCu" Multiplicity="0..1" />
+    <End Role="product_order" Type="Self.product_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orderCus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="product_order">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_o__produ__1B0907CE">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="product_order" Type="Self.product_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product_order">
+        <PropertyRef Name="productId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stock_pro__produ__38996AB5">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="stock_product" Type="Self.stock_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="stock_product">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stock_pro__stock__37A5467C">
+    <End Role="stock" Type="Self.stock" Multiplicity="0..1" />
+    <End Role="stock_product" Type="Self.stock_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="stock_product">
+        <PropertyRef Name="stockId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="quanlydogoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="logins" EntityType="Self.login" />
+    <EntitySet Name="orderCus" EntityType="Self.orderCu" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="product_order" EntityType="Self.product_order" />
+    <EntitySet Name="stocks" EntityType="Self.stock" />
+    <EntitySet Name="stock_product" EntityType="Self.stock_product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__orderCus__custom__182C9B23" Association="Self.FK__orderCus__custom__182C9B23">
+      <End Role="customer" EntitySet="customers" />
+      <End Role="orderCus" EntitySet="orderCus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_o__order__1BFD2C07" Association="Self.FK__product_o__order__1BFD2C07">
+      <End Role="orderCus" EntitySet="orderCus" />
+      <End Role="product_order" EntitySet="product_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_o__produ__1B0907CE" Association="Self.FK__product_o__produ__1B0907CE">
+      <End Role="product" EntitySet="products" />
+      <End Role="product_order" EntitySet="product_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stock_pro__produ__38996AB5" Association="Self.FK__stock_pro__produ__38996AB5">
+      <End Role="product" EntitySet="products" />
+      <End Role="stock_product" EntitySet="stock_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stock_pro__stock__37A5467C" Association="Self.FK__stock_pro__stock__37A5467C">
+      <End Role="stock" EntitySet="stocks" />
+      <End Role="stock_product" EntitySet="stock_product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,63 @@
+﻿@using WebApplication2.Models
+@model IEnumerable<WebApplication2.Models.stock>
+@{
+    ViewBag.Title = "Store";
+    List<int> chekItem = ViewBag.CheckList;
+    List<int> chekQuantity = ViewBag.CheckQuantity;
+}
+
+<h2>Store</h2>
+
+<h2>Add store for user @ViewBag.UserName</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input type="hidden" name="all[]" value="@item.id" />
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+
+                    @{
+                        string item_checked = "";
+                        int item_quantity = 0;
+                        if (chekItem != null && chekItem.Contains(item.id))
+                        {
+                            item_checked = "checked";
+                            if (chekQuantity != null)
+                            {
+                                item_quantity = chekQuantity[0];
+                                chekQuantity.RemoveAt(0);
+                            }
+                        }
+                        
+                    }
+                    @Html.DisplayFor(modelItem => item.address)
+                    <input type="checkbox" name="check[]" value="@item.id" @item_checked />
+                    <input type="number" name="quantity[]" value="@item_quantity" @item_checked />
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="Save" />
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6d2a8ee9644243c29aa31b065406ce91" Name="Diagram1">
+        <EntityTypeShape EntityType="quanlydogoModel.customer" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.login" Width="1.5" PointX="2.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.orderCu" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.product" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.product_order" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.stock" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.stock_product" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.sysdiagram" Width="1.5" PointX="4.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="quanlydogoModel.User" Width="1.5" PointX="6.75" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="quanlydogoModel.FK__orderCus__custom__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlydogoModel.FK__product_o__order__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlydogoModel.FK__product_o__produ__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlydogoModel.FK__stock_pro__produ__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="quanlydogoModel.FK__stock_pro__stock__37A5467C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

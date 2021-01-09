@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="quanlydogoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="250" />
+    <Property Name="adress" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="role" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="orderCus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="customerid" Type="int" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_time" Type="datetime" />
+    <Property Name="total_price" Type="decimal" Precision="16" Scale="0" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="price" Type="decimal" Precision="16" Scale="0" />
+    <Property Name="pricelive" Type="decimal" Precision="16" Scale="0" />
+    <Property Name="product_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="info" Type="text" />
+    <Property Name="design_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="size" Type="char" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="product_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="productId" Type="int" />
+    <Property Name="orderId" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="price" Type="decimal" Precision="16" Scale="0" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="stock">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="stock_product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stockId" Type="int" />
+    <Property Name="productID" Type="int" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+    <Property Name="orderProduct" Type="int" />
+    <Property Name="timeStamp" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__orderCus__custom__182C9B23">
+    <End Role="customer" Type="Self.customer" Multiplicity="0..1" />
+    <End Role="orderCus" Type="Self.orderCus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="orderCus">
+        <PropertyRef Name="customerid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_o__order__1BFD2C07">
+    <End Role="orderCus" Type="Self.orderCus" Multiplicity="0..1" />
+    <End Role="product_order" Type="Self.product_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orderCus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="product_order">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_o__produ__1B0907CE">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="product_order" Type="Self.product_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product_order">
+        <PropertyRef Name="productId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stock_pro__produ__38996AB5">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="stock_product" Type="Self.stock_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="stock_product">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__stock_pro__stock__37A5467C">
+    <End Role="stock" Type="Self.stock" Multiplicity="0..1" />
+    <End Role="stock_product" Type="Self.stock_product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="stock">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="stock_product">
+        <PropertyRef Name="stockId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="quanlydogoModelStoreContainer">
+    <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orderCus" EntityType="Self.orderCus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_order" EntityType="Self.product_order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stock_product" EntityType="Self.stock_product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__orderCus__custom__182C9B23" Association="Self.FK__orderCus__custom__182C9B23">
+      <End Role="customer" EntitySet="customer" />
+      <End Role="orderCus" EntitySet="orderCus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_o__order__1BFD2C07" Association="Self.FK__product_o__order__1BFD2C07">
+      <End Role="orderCus" EntitySet="orderCus" />
+      <End Role="product_order" EntitySet="product_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_o__produ__1B0907CE" Association="Self.FK__product_o__produ__1B0907CE">
+      <End Role="product" EntitySet="product" />
+      <End Role="product_order" EntitySet="product_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stock_pro__produ__38996AB5" Association="Self.FK__stock_pro__produ__38996AB5">
+      <End Role="product" EntitySet="product" />
+      <End Role="stock_product" EntitySet="stock_product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__stock_pro__stock__37A5467C" Association="Self.FK__stock_pro__stock__37A5467C">
+      <End Role="stock" EntitySet="stock" />
+      <End Role="stock_product" EntitySet="stock_product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

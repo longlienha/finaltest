@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="float:left">Index</h2>
+<a href="/Admin/Product/Insert"><button type="button" class="btn btn-primary" style="float:right;margin-top:20px;">Insert Product</button></a>
+@using (@Html.BeginForm())
+{
+    <form>
+        <button type="submit" class="btn btn-primary" style="float: right ;margin-top: 20px; margin-right: 15px;">Submit</button>
+        <input type="text" class="form-control" id="Name" name="keyword" placeholder="Search Name" style="float: right;margin-top: 20px">
+    </form>
+}
+
+<table class="table-bordered table-responsive table">
+    <tr>
+        <th>Name</th>
+        <th>price</th>
+        <th>pricelive</th>
+        <th>product type</th>
+        <th>info</th>
+        <th>design type</th>
+        <th>size</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.name</td>
+            <td>@item.price</td>
+            <td>@item.pricelive</td>
+            <td>@item.product_type</td>
+            <td>@item.info</td>
+            <td>@item.design_type</td>
+            <td>@item.size</td>
+            <td>
+                <a href="/Admin/Product/Edit/@item.id">Edit</a>
+                <a href="/Admin/Product/Delete/@item.id">Delete</a>
+                <a href="/Admin/Product/Store/@item.id">Store</a>
+            </td>
+        </tr>
+    }
+</table>
